@@ -5,7 +5,7 @@ import (
 
 	"github.com/hybridgroup/gobot"
 	"github.com/hybridgroup/gobot/platforms/leap"
-	lb "github.com/isarbit/leap-bot"
+	lb "github.com/isarbit/leap-bot/leap"
 )
 
 func main() {
