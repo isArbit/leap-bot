@@ -6,6 +6,7 @@ import (
 	"github.com/hybridgroup/gobot/platforms/leap"
 )
 
+// NewController returns a controller struct
 func NewController(lAdapter *leap.LeapMotionAdaptor, aAdapter *ardrone.ArdroneAdaptor) *Controller {
 	drone := ardrone.NewArdroneDriver(aAdapter, "Drone")
 	l := leap.NewLeapMotionDriver(lAdapter, "leap")
@@ -18,6 +19,7 @@ func NewController(lAdapter *leap.LeapMotionAdaptor, aAdapter *ardrone.ArdroneAd
 }
 
 // Controller defines all needed robot elements.
+// XXX: refactor by adding interface so we can have mock testing.
 type Controller struct {
 	LAdapter *leap.LeapMotionAdaptor
 	LDriver  *leap.LeapMotionDriver
@@ -25,6 +27,7 @@ type Controller struct {
 	ADriver  *ardrone.ArdroneDriver
 }
 
+// DroneRobot returns an ARDrone robot.
 func (c *Controller) DroneRobot(worker func()) *gobot.Robot {
 	return gobot.NewRobot("drone",
 		[]gobot.Connection{c.AAdapter},
@@ -33,6 +36,7 @@ func (c *Controller) DroneRobot(worker func()) *gobot.Robot {
 	)
 }
 
+// LeapRobot returns an Leap Motion robot.
 func (c *Controller) LeapRobot(worker func()) *gobot.Robot {
 	// create a leap motion bot to track the event
 	return gobot.NewRobot("leapBot",

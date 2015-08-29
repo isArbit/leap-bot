@@ -53,10 +53,10 @@ func main() {
 
 	// implement ARDrone worker
 	droneWorker := func() {
-		drone.TakeOff()
+		c.ADriver.TakeOff()
 		gobot.On(c.ADriver.Event("flying"), func(data interface{}) {
 			gobot.After(3*time.Second, func() {
-				drone.Land()
+				c.ADriver.Land()
 			})
 		})
 	}
@@ -64,7 +64,9 @@ func main() {
 	// add a leap robot to gobot
 	gbot.AddRobot(c.LeapRobot(leapWorker))
 	// add a ardrone robot to gobot
-	gbot.AddEvent(c.DroneRobot(droneWorker))
+	// TODO: temporarily disable drone robot.
+	// gbot.AddRobot(c.DroneRobot(droneWorker))
+	_ = droneWorker
 
 	// start
 	gbot.Start()
